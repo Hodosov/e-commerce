@@ -48,6 +48,57 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              decoration: const BoxDecoration(color: Colors.red),
+            ),
+            InkWell(
+              onTap: () {},
+              child: const ListTile(
+                title: Text("Home Page"),
+                leading: Icon(Icons.home),
+              ),
+            ),
+            InkWell(
+              onTap: () {},
+              child: const ListTile(
+                title: Text("My account"),
+                leading: Icon(Icons.person),
+              ),
+            ),
+            InkWell(
+              onTap: () {},
+              child: const ListTile(
+                title: Text("My Orders"),
+                leading: Icon(Icons.shopping_basket),
+              ),
+            ),
+            InkWell(
+              onTap: () {},
+              child: const ListTile(
+                title: Text("Categoris"),
+                leading: Icon(Icons.dashboard),
+              ),
+            ),
+            InkWell(
+              onTap: () {},
+              child: const ListTile(
+                title: Text("Favorites"),
+                leading: Icon(Icons.favorite),
+              ),
+            ),
+            const Divider(),
+              InkWell(
+              onTap: () {},
+              child: const ListTile(
+                title: Text("Settings"),
+                leading: Icon(Icons.settings),
+              ),
+            ),
+              InkWell(
+              onTap: () {},
+              child: const ListTile(
+                title: Text("About"),
+                leading: Icon(Icons.help),
+              ),
             ),
           ],
         ),
