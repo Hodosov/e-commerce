@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+//переписать на carousel_slider 4.0.0
+import 'package:carousel_pro/carousel_pro.dart';
 
 void main() {
   runApp(MaterialApp(debugShowCheckedModeBanner: false, home: HomePage()));
@@ -14,8 +16,30 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+  Widget image_carousel = Container(
+      height: 200,
+      child: Carousel(
+        boxFit: BoxFit.cover,
+        images: const [
+          AssetImage('images/c1.jpg'),
+          AssetImage('images/m1.jpeg'),
+          AssetImage('images/m2.jpg'),
+          AssetImage('images/w1.jpeg'),
+          AssetImage('images/w3.jpeg'),
+          AssetImage('images/w4.jpeg'),
+        ],
+        autoplay: false,
+        animationCurve: Curves.fastOutSlowIn,
+        animationDuration: const Duration(microseconds: 1000),
+        dotSize: 4.0,
+        indicatorBgPadding: 8,
+        dotBgColor: Colors.transparent,
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         backgroundColor: Colors.red,
         title: const Text("FashApp"),
         actions: <Widget>[
@@ -86,23 +110,29 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const Divider(),
-              InkWell(
+            InkWell(
               onTap: () {},
               child: const ListTile(
                 title: Text("Settings"),
-                leading: Icon(Icons.settings),
+                leading: Icon(Icons.settings, color: Colors.blue),
               ),
             ),
-              InkWell(
+            InkWell(
               onTap: () {},
               child: const ListTile(
                 title: Text("About"),
-                leading: Icon(Icons.help),
+                leading: Icon(
+                  Icons.help,
+                  color: Colors.green,
+                ),
               ),
             ),
           ],
         ),
       ),
+      body: ListView(children: [
+        image_carousel
+      ],),
     );
   }
 }
