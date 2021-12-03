@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 //переписать на carousel_slider 4.0.0
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:carousel_pro/carousel_pro.dart';
+
+import 'package:flutter_application_1/components/horizontal_lustview.dart';
 
 void main() {
   runApp(MaterialApp(debugShowCheckedModeBanner: false, home: HomePage()));
@@ -16,7 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-  Widget image_carousel = Container(
+    Widget image_carousel = SizedBox(
       height: 200,
       child: Carousel(
         boxFit: BoxFit.cover,
@@ -130,9 +133,16 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: ListView(children: [
-        image_carousel
-      ],),
+      body: ListView(
+        children: <Widget>[
+          image_carousel,
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Caregories'),
+          ),
+          HorisontalList()
+        ],
+      ),
     );
   }
 }
