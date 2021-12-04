@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 //переписать на carousel_slider 4.0.0
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:carousel_pro/carousel_pro.dart';
 
 import 'package:flutter_application_1/components/horizontal_lustview.dart';
+import 'package:flutter_application_1/components/products.dart';
 
 void main() {
   runApp(MaterialApp(debugShowCheckedModeBanner: false, home: HomePage()));
@@ -140,7 +140,20 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.all(8.0),
             child: Text('Caregories'),
           ),
-          HorisontalList()
+          HorisontalList(),
+
+
+          const Padding(
+            padding: EdgeInsets.all(12.0),
+            child: Text('Recent products'),
+          ),
+
+
+        Container(
+          height: 320,
+          child: Products(),
+        )
+
         ],
       ),
     );
