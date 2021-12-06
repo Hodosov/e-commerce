@@ -81,7 +81,24 @@ class _ProductDetailsState extends State<ProductDetails> {
             children: <Widget>[
               Expanded(
                   child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text('Size'),
+                          content: const Text('Choose the size'),
+                          actions: [
+                            MaterialButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(context);
+                              },
+                              child: const Text("close"),
+                            ),
+                          ],
+                        );
+                      });
+                },
                 color: Colors.white,
                 textColor: Colors.grey,
                 elevation: 0.2,
@@ -94,7 +111,24 @@ class _ProductDetailsState extends State<ProductDetails> {
               )),
               Expanded(
                   child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text('Color'),
+                          content: const Text('Choose the color'),
+                          actions: [
+                            MaterialButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(context);
+                              },
+                              child: const Text("close"),
+                            ),
+                          ],
+                        );
+                      });
+                },
                 color: Colors.white,
                 textColor: Colors.grey,
                 elevation: 0.2,
@@ -107,7 +141,24 @@ class _ProductDetailsState extends State<ProductDetails> {
               )),
               Expanded(
                   child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text('Qty'),
+                          content: const Text('Choose the qty'),
+                          actions: [
+                            MaterialButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(context);
+                              },
+                              child: const Text("close"),
+                            ),
+                          ],
+                        );
+                      });
+                },
                 color: Colors.white,
                 textColor: Colors.grey,
                 elevation: 0.2,
@@ -129,8 +180,67 @@ class _ProductDetailsState extends State<ProductDetails> {
                       textColor: Colors.white,
                       elevation: 0.2,
                       child: const Text('Buy now'))),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart, color: Colors.red,)),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border, color: Colors.red)),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.shopping_cart,
+                    color: Colors.red,
+                  )),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.favorite_border, color: Colors.red)),
+            ],
+          ),
+          const Divider(),
+          const ListTile(
+            title: Text("Product details"),
+            subtitle: Text(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"),
+          ),
+          const Divider(),
+          Row(
+            children: <Widget>[
+              const Padding(
+                padding: EdgeInsets.fromLTRB(12, 5, 5, 5),
+                child: Text(
+                  "Product name",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(5),
+                child: Text(widget.product_detail_name),
+              )
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(12, 5, 5, 5),
+                child: Text(
+                  "Product brand",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(5),
+                child: Text("Brand"),
+              )
+            ],
+          ),
+          Row(
+            children: const <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(12, 5, 5, 5),
+                child: Text(
+                  "Product condition",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(5),
+                child: Text("Condition"),
+              )
             ],
           )
         ],
