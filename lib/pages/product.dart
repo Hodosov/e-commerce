@@ -208,13 +208,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 child: Text(widget.product_detail_name),
               )
             ],
           ),
           Row(
-            children: <Widget>[
+            children: const <Widget>[
               Padding(
                 padding: EdgeInsets.fromLTRB(12, 5, 5, 5),
                 child: Text(
