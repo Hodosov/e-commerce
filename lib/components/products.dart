@@ -21,7 +21,49 @@ class _ProductsState extends State<Products> {
       "picture": "images/products/dress1.jpeg",
       "old_price": 100,
       "price": 50,
-    }
+    },
+    {
+      "name": "Blazer",
+      "picture": "images/products/blazer2.jpeg",
+      "old_price": 120,
+      "price": 85,
+    },
+    {
+      "name": "Dress",
+      "picture": "images/products/dress2.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Hills",
+      "picture": "images/products/hills1.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Hills2",
+      "picture": "images/products/hills2.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Pant",
+      "picture": "images/products/pants1.jpg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Pant",
+      "picture": "images/products/pants2.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Shoe",
+      "picture": "images/products/shoe1.jpg",
+      "old_price": 100,
+      "price": 50,
+    },
   ];
 
   @override
@@ -61,9 +103,8 @@ class Single_prod extends StatelessWidget {
                 tag: prod_name,
                 child: Material(
                   child: InkWell(
-                    onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => ProductDetails(
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ProductDetails(
                               product_detail_name: prod_name,
                               product_detail_new_price: prod_price,
                               product_detail_old_price: prod_old_price,
@@ -71,28 +112,22 @@ class Single_prod extends StatelessWidget {
                             ))),
                     child: GridTile(
                         footer: Container(
-                          color: Colors.white70,
-                          child: ListTile(
-                            leading: Text(
-                              prod_name,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            title: Text(
-                              '\$$prod_price',
-                              style: const TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            subtitle: Text(
-                              '\$$prod_old_price',
-                              style: const TextStyle(
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.w800,
-                                  decoration: TextDecoration.lineThrough),
-                            ),
-                          ),
-                        ),
+                            color: Colors.white,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  prod_name,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                )),
+                                Text(
+                                  '\$$prod_price',
+                                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            )),
                         child: Image.asset(prod_pictire, fit: BoxFit.cover)),
                   ),
                 ))));
