@@ -4,6 +4,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 
 import 'package:flutter_application_1/components/horizontal_lustview.dart';
 import 'package:flutter_application_1/components/products.dart';
+import 'package:flutter_application_1/pages/cart.dart';
 
 void main() {
   runApp(MaterialApp(debugShowCheckedModeBanner: false, home: HomePage()));
@@ -53,7 +54,10 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
               )),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Cart()));
+              },
               icon: const Icon(
                 Icons.shopping_cart,
                 color: Colors.white,
@@ -99,17 +103,23 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Cart()));
+              },
               child: const ListTile(
                 title: Text("Shopping cart"),
-                leading: Icon(Icons.shopping_cart, color: Colors.red,),
+                leading: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.red,
+                ),
               ),
             ),
             InkWell(
               onTap: () {},
               child: const ListTile(
                 title: Text("Favorites"),
-                leading: Icon(Icons.favorite,  color: Colors.red),
+                leading: Icon(Icons.favorite, color: Colors.red),
               ),
             ),
             const Divider(),
@@ -117,7 +127,9 @@ class _HomePageState extends State<HomePage> {
               onTap: () {},
               child: const ListTile(
                 title: Text("Settings"),
-                leading: Icon(Icons.settings, ),
+                leading: Icon(
+                  Icons.settings,
+                ),
               ),
             ),
             InkWell(
@@ -144,11 +156,10 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.all(12.0),
             child: Text('Recent products'),
           ),
-        Container(
-          height: 320,
-          child: Products(),
-        )
-
+          Container(
+            height: 320,
+            child: Products(),
+          )
         ],
       ),
     );
