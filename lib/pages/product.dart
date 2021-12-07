@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/main.dart';
 
 class ProductDetails extends StatefulWidget {
   final product_detail_name;
@@ -23,7 +24,12 @@ class _ProductDetailsState extends State<ProductDetails> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.red,
-        title: Text(widget.product_detail_name),
+        title: InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+            },
+            child: Text(widget.product_detail_name)),
         actions: <Widget>[
           IconButton(
               onPressed: () {},
@@ -31,12 +37,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Icons.search,
                 color: Colors.white,
               )),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
-              ))
         ],
       ),
       body: ListView(
@@ -242,9 +242,123 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Text("Condition"),
               )
             ],
+          ),
+         const Divider(),
+         const Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text('Similar products'),
+          ),
+          Container(
+            height: 390,
+            child: Similar_product(),
           )
         ],
       ),
     );
+  }
+}
+
+class Similar_product extends StatefulWidget {
+  Similar_product({Key? key}) : super(key: key);
+
+  @override
+  _Similar_productState createState() => _Similar_productState();
+}
+
+class _Similar_productState extends State<Similar_product> {
+  var product_list = [
+    {
+      "name": "Hills",
+      "picture": "images/products/hills1.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Pant",
+      "picture": "images/products/pants1.jpg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Pant",
+      "picture": "images/products/pants2.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Shoe",
+      "picture": "images/products/shoe1.jpg",
+      "old_price": 100,
+      "price": 50,
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+        itemCount: product_list.length,
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (BuildContext context, int index) {
+          return Similar_Single_prod(
+            prod_name: product_list[index]['name'],
+            prod_pictire: product_list[index]['picture'],
+            prod_old_price: product_list[index]['old_price'],
+            prod_price: product_list[index]['price'],
+          );
+        });
+  }
+}
+
+class Similar_Single_prod extends StatelessWidget {
+  final prod_name;
+  final prod_pictire;
+  final prod_old_price;
+  final prod_price;
+
+  Similar_Single_prod(
+      {this.prod_name,
+      this.prod_pictire,
+      this.prod_old_price,
+      this.prod_price});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: Card(
+            child: Hero(
+                tag: prod_name,
+                child: Material(
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ProductDetails(
+                              product_detail_name: prod_name,
+                              product_detail_new_price: prod_price,
+                              product_detail_old_price: prod_old_price,
+                              product_detail_picture: prod_pictire,
+                            ))),
+                    child: GridTile(
+                        footer: Container(
+                            color: Colors.white,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  prod_name,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                )),
+                                Text(
+                                  '\$$prod_price',
+                                  style: const TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            )),
+                        child: Image.asset(prod_pictire, fit: BoxFit.cover)),
+                  ),
+                ))));
   }
 }

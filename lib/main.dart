@@ -81,35 +81,35 @@ class _HomePageState extends State<HomePage> {
               onTap: () {},
               child: const ListTile(
                 title: Text("Home Page"),
-                leading: Icon(Icons.home),
+                leading: Icon(Icons.home, color: Colors.red),
               ),
             ),
             InkWell(
               onTap: () {},
               child: const ListTile(
                 title: Text("My account"),
-                leading: Icon(Icons.person),
+                leading: Icon(Icons.person, color: Colors.red),
               ),
             ),
             InkWell(
               onTap: () {},
               child: const ListTile(
                 title: Text("My Orders"),
-                leading: Icon(Icons.shopping_basket),
+                leading: Icon(Icons.shopping_basket, color: Colors.red),
               ),
             ),
             InkWell(
               onTap: () {},
               child: const ListTile(
-                title: Text("Categoris"),
-                leading: Icon(Icons.dashboard),
+                title: Text("Shopping cart"),
+                leading: Icon(Icons.shopping_cart, color: Colors.red,),
               ),
             ),
             InkWell(
               onTap: () {},
               child: const ListTile(
                 title: Text("Favorites"),
-                leading: Icon(Icons.favorite),
+                leading: Icon(Icons.favorite,  color: Colors.red),
               ),
             ),
             const Divider(),
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {},
               child: const ListTile(
                 title: Text("Settings"),
-                leading: Icon(Icons.settings, color: Colors.blue),
+                leading: Icon(Icons.settings, ),
               ),
             ),
             InkWell(
@@ -126,7 +126,6 @@ class _HomePageState extends State<HomePage> {
                 title: Text("About"),
                 leading: Icon(
                   Icons.help,
-                  color: Colors.green,
                 ),
               ),
             ),
@@ -141,14 +140,10 @@ class _HomePageState extends State<HomePage> {
             child: Text('Caregories'),
           ),
           HorisontalList(),
-
-
           const Padding(
             padding: EdgeInsets.all(12.0),
             child: Text('Recent products'),
           ),
-
-
         Container(
           height: 320,
           child: Products(),

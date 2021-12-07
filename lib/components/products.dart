@@ -124,7 +124,7 @@ class Single_prod extends StatelessWidget {
                                 )),
                                 Text(
                                   '\$$prod_price',
-                                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                                  style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                                 )
                               ],
                             )),
