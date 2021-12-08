@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/card_products.dart';
 
 class Cart extends StatefulWidget {
   Cart({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class _CartState extends State<Cart> {
               )),
         ],
       ),
+      body: Card_products(),
       bottomNavigationBar: Container(
         color: Colors.white,
         child: Row(
