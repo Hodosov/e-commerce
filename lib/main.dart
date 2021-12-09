@@ -144,20 +144,24 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: ListView(
+      body: Column(
         children: <Widget>[
-          image_carousel,
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text('Caregories'),
-          ),
+          // image_carousel,
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: const Text('Caregories'),
+              )),
           HorisontalList(),
-          const Padding(
-            padding: EdgeInsets.all(12.0),
-            child: Text('Recent products'),
+          Padding(
+            child: Container(
+              child: const Text('Recent products'),
+              alignment: Alignment.centerLeft,
+            ),
+            padding: const EdgeInsets.all(12.0),
           ),
-          Container(
-            height: 320,
+          Flexible(
             child: Products(),
           )
         ],
