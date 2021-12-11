@@ -42,63 +42,87 @@ class _LoginState extends State<Login> {
     setState(() {
       loading = false;
     });
+  }
 
-    Future handleSingIn() async {
-      preferences = await SharedPreferences.getInstance();
+  void handleSingIn() async {
+    preferences = await SharedPreferences.getInstance();
+    setState(() {
+      loading = true;
+    });
 
-      setState(() {
-        loading = true;
-      });
+    final GoogleSignInAccount? account = await googleSignIn.signIn();
+    final GoogleSignInAuthentication authentication =
+        await account!.authentication;
 
-      final GoogleSignInAccount? account = await googleSignIn.signIn();
-      final GoogleSignInAuthentication authentication =
-          await account!.authentication;
+    final OAuthCredential credential = GoogleAuthProvider.credential(
+        idToken: authentication.idToken,
+        accessToken: authentication.accessToken);
 
-      final OAuthCredential credential = GoogleAuthProvider.credential(
-          idToken: authentication.idToken,
-          accessToken: authentication.accessToken);
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
+    final User? user = authResult.user;
 
-      final UserCredential authResult =
-          await _auth.signInWithCredential(credential);
-      final User? user = authResult.user;
-
-      if (user != null) {
-        final QuerySnapshot result = await FirebaseFirestore.instance
-            .collection('users')
-            .where('id', isEqualTo: user.uid)
-            .get();
-        final List<DocumentSnapshot> documents = result.docs;
-        if (documents.length == 0) {
-          FirebaseFirestore.instance.collection('user').doc(user.uid).set({
-            "id": user.uid,
-            "username": user.displayName,
-            "profilePicture": user.photoURL
-          });
-
-          await preferences.setString('id', user.uid);
-          await preferences.setString('username', '$user.displayName');
-          await preferences.setString('profilePicture', user.uid);
-        } else {
-          await preferences.setString('id', documents[0]['id']);
-          await preferences.setString('username', documents[0]['username']);
-          await preferences.setString(
-              'profilePicture', documents[0]['profilePicture']);
-        }
-
-        Fluttertoast.showToast(msg: "Login was successful");
-        setState(() {
-         loading = false; 
+    if (user != null) {
+      final QuerySnapshot result = await FirebaseFirestore.instance
+          .collection('users')
+          .where('id', isEqualTo: user.uid)
+          .get();
+      final List<DocumentSnapshot> documents = result.docs;
+      if (documents.length == 0) {
+        FirebaseFirestore.instance.collection('user').doc(user.uid).set({
+          "id": user.uid,
+          "username": user.displayName,
+          "profilePicture": user.photoURL
         });
 
-        
+        await preferences.setString('id', user.uid);
+        await preferences.setString('username', '$user.displayName');
+        await preferences.setString('profilePicture', user.uid);
       } else {
-
+        await preferences.setString('id', documents[0]['id']);
+        await preferences.setString('username', documents[0]['username']);
+        await preferences.setString(
+            'profilePicture', documents[0]['profilePicture']);
       }
+
+      Fluttertoast.showToast(msg: "Login was successful");
+      setState(() {
+        loading = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: Text("Login"),
+        elevation: 0.5,
+      ),
+      body: Stack(children: <Widget>[
+        Center(
+            child: TextButton(
+          onPressed: () {
+            handleSingIn();
+          },
+          child: Text("Sign in / Sing up with google"),
+        )),
+        Visibility(
+            visible: loading,
+            child: Center(
+              child: Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  color: Colors.white.withOpacity(0.7),
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                  ),
+                ),
+              ),
+            ))
+      ]),
+    );
   }
 }
