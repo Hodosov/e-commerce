@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import "package:shared_preferences/shared_preferences.dart";
@@ -8,14 +9,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
-
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   late SharedPreferences preferences;
   bool loading = false;
   bool isLogedin = false;
@@ -26,37 +27,78 @@ class _LoginState extends State<Login> {
     isSignedIn();
   }
 
-   void isSignedIn() async {
-     setState(() {
-       loading = true;
-     });
+  void isSignedIn() async {
+    setState(() {
+      loading = true;
+    });
 
-     preferences = await SharedPreferences.getInstance();
-     isLogedin = await googleSignIn.isSignedIn();
-     if(isLogedin) {
-       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>HomePage()));
-     }
+    preferences = await SharedPreferences.getInstance();
+    isLogedin = await googleSignIn.isSignedIn();
+    if (isLogedin) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
+    }
 
-     setState(() {
-       loading = false;
-     });
+    setState(() {
+      loading = false;
+    });
 
-     Future handleSingIn() async {
-       preferences = await SharedPreferences.getInstance();
+    Future handleSingIn() async {
+      preferences = await SharedPreferences.getInstance();
 
-       setState(() {
-         loading = true;
-       });
+      setState(() {
+        loading = true;
+      });
 
-       GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-       Future<GoogleSignInAuthentication> googleSignInAuthentication = googleUser!.authentication;
-     }
-   }
+      final GoogleSignInAccount? account = await googleSignIn.signIn();
+      final GoogleSignInAuthentication authentication =
+          await account!.authentication;
+
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+          idToken: authentication.idToken,
+          accessToken: authentication.accessToken);
+
+      final UserCredential authResult =
+          await _auth.signInWithCredential(credential);
+      final User? user = authResult.user;
+
+      if (user != null) {
+        final QuerySnapshot result = await FirebaseFirestore.instance
+            .collection('users')
+            .where('id', isEqualTo: user.uid)
+            .get();
+        final List<DocumentSnapshot> documents = result.docs;
+        if (documents.length == 0) {
+          FirebaseFirestore.instance.collection('user').doc(user.uid).set({
+            "id": user.uid,
+            "username": user.displayName,
+            "profilePicture": user.photoURL
+          });
+
+          await preferences.setString('id', user.uid);
+          await preferences.setString('username', '$user.displayName');
+          await preferences.setString('profilePicture', user.uid);
+        } else {
+          await preferences.setString('id', documents[0]['id']);
+          await preferences.setString('username', documents[0]['username']);
+          await preferences.setString(
+              'profilePicture', documents[0]['profilePicture']);
+        }
+
+        Fluttertoast.showToast(msg: "Login was successful");
+        setState(() {
+         loading = false; 
+        });
+
+        
+      } else {
+
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container();
   }
-
- 
 }
