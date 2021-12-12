@@ -14,7 +14,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late SharedPreferences preferences;
@@ -34,14 +33,9 @@ class _LoginState extends State<Login> {
 
     preferences = await SharedPreferences.getInstance();
     isLogedin = await googleSignIn.isSignedIn();
-    if (isLogedin) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
-    }
-
-    setState(() {
-      loading = false;
-    });
+      setState(() {
+        loading = false;
+      });
   }
 
   void handleSingIn() async {
@@ -86,6 +80,12 @@ class _LoginState extends State<Login> {
       }
 
       Fluttertoast.showToast(msg: "Login was successful");
+      if (isLogedin) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      }
+
+    
       setState(() {
         loading = false;
       });
@@ -98,7 +98,7 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text("Login"),
+        title: const Text("Login"),
         elevation: 0.5,
       ),
       body: Stack(children: <Widget>[
@@ -107,7 +107,7 @@ class _LoginState extends State<Login> {
           onPressed: () {
             handleSingIn();
           },
-          child: Text("Sign in / Sing up with google"),
+          child: const Text("Sign in / Sing up with google"),
         )),
         Visibility(
             visible: loading,
@@ -116,7 +116,7 @@ class _LoginState extends State<Login> {
                 child: Container(
                   alignment: Alignment.center,
                   color: Colors.white.withOpacity(0.7),
-                  child: CircularProgressIndicator(
+                  child: const CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
                   ),
                 ),
